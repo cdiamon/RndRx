@@ -57,8 +57,11 @@ class SummitListAdapter(val summitListener: SummitListener) :
                 summitRating.rating = summit.rating
 
                 summitRating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-                    summit.rating = rating
-                    summitListener.onRatingChanged(summit)
+
+                    summits[adapterPosition].rating = rating
+                    summitListener.onRatingChanged(summits[adapterPosition])
+//                    summit.rating = rating
+//                    summitListener.onRatingChanged(summit)
                 }
             }
         }

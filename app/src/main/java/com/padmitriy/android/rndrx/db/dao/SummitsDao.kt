@@ -3,6 +3,7 @@ package com.padmitriy.android.rndrx.db.dao
 import android.arch.persistence.room.*
 import com.padmitriy.android.rndrx.model.Summit
 import io.reactivex.Flowable
+import io.reactivex.Single
 
 
 @Dao
@@ -22,6 +23,9 @@ interface SummitsDao {
 
     @Query("SELECT * FROM summit ORDER BY rating DESC")
     fun getAllsummits(): Flowable<List<Summit>>
+
+    @Query("SELECT * FROM summit WHERE summitId = :id")
+    fun getSummitById(id: Int): Single<Summit>
 
     @Query("DELETE FROM summit")
     fun clearAllSummits()

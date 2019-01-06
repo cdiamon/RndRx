@@ -1,6 +1,7 @@
 package com.padmitriy.android.rndrx.view
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import com.padmitriy.android.rndrx.R
 import com.padmitriy.android.rndrx.RndRxApplication
@@ -15,6 +16,7 @@ class RatingListActivity : BaseActivity(), RatingListView, SummitListAdapter.Sum
     lateinit var ratingListPresenter: RatingListPresenter
 
     private val adapter: SummitListAdapter by lazy { SummitListAdapter(this) }
+    private var fabActiveState = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +29,24 @@ class RatingListActivity : BaseActivity(), RatingListView, SummitListAdapter.Sum
         ratingListPresenter.attachView(this)
 
         ratingListPresenter.getSummitsList()
+
+        initViews()
+    }
+
+    private fun initViews() {
+        fab.setOnClickListener {
+            if (fabActiveState) {
+                fabActiveState = false
+                fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_fab))
+                fabText.text = getString(R.string.randomize)
+                ratingListPresenter.stopRandomizing()
+            } else {
+                fabActiveState = true
+                fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_stop_fab))
+                fabText.text = getString(R.string.fab_stop)
+                ratingListPresenter.startRandomizing()
+            }
+        }
     }
 
     override fun showSummits(list: List<Summit>) {
