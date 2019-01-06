@@ -109,7 +109,7 @@ class RatingListPresenterTest {
     }
 
     companion object {
-        private val TEST_SUMMITS_LIST = arrayListOf<Summit>(Summit("", 0.0f, 0.0f, ""))
+        private val TEST_SUMMITS_LIST = arrayListOf(Summit("", 0.0f, 0.0f, ""))
         private val TEST_SUMMIT_DTO = Summit("", 0.0f, 0.0f, "")
     }
 }

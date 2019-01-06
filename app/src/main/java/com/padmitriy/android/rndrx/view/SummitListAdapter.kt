@@ -1,6 +1,5 @@
 package com.padmitriy.android.rndrx.view
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import kotlinx.android.synthetic.main.item_summit.view.*
 import java.util.*
 
 class SummitListAdapter(val summitListener: SummitListener) :
-    RecyclerView.Adapter<SummitListAdapter.SummitViewHolder>() {
+        RecyclerView.Adapter<SummitListAdapter.SummitViewHolder>() {
 
     private var summits: List<Summit> = Collections.emptyList()
 
@@ -36,32 +35,25 @@ class SummitListAdapter(val summitListener: SummitListener) :
     override fun getItemCount() = summits.size
 
     inner class SummitViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
-        LayoutContainer {
-
-        private val context: Context = containerView.context
+            LayoutContainer {
 
         fun init(summit: Summit) {
             with(containerView) {
-
-
                 GlideApp.with(this)
-                    .load(summit.picture)
-                    .error(resources.getDrawable(R.drawable.mountain_default))
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(summitImage)
+                        .load(summit.picture)
+                        .error(resources.getDrawable(R.drawable.mountain_default))
+                        .apply(RequestOptions.circleCropTransform())
+                        .into(summitImage)
 
                 summitName.text = summit.name
 
-                summitHeight.text = "${summit.height} m."
+                summitHeight.text = context.getString(R.string.height_text, summit.height.toString())
 
                 summitRating.rating = summit.rating
 
                 summitRating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
-
                     summits[adapterPosition].rating = rating
                     summitListener.onRatingChanged(summits[adapterPosition])
-//                    summit.rating = rating
-//                    summitListener.onRatingChanged(summit)
                 }
             }
         }
