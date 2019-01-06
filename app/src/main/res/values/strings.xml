@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">RndRx</string>
+    <string name="error_message">something gone wrong</string>
+    <string name="randomize">Randomize</string>
 </resources>

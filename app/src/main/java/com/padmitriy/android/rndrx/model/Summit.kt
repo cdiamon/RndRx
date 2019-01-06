@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 data class Summit(
     val name: String,
     val height: Float,
-    val rating: Float,
+    var rating: Float,
     val picture: String
 ) {
     @PrimaryKey(autoGenerate = true)
