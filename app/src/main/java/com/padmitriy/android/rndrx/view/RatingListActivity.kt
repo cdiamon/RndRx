@@ -35,16 +35,16 @@ class RatingListActivity : BaseActivity(), RatingListView, SummitListAdapter.Sum
 
     private fun initViews() {
         fab.setOnClickListener {
-            if (fabActiveState) {
-                fabActiveState = false
-                fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_fab))
-                fabText.text = getString(R.string.randomize)
-                ratingListPresenter.stopRandomizing()
-            } else {
+            if (!fabActiveState) {
                 fabActiveState = true
                 fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_stop_fab))
                 fabText.text = getString(R.string.fab_stop)
                 ratingListPresenter.startRandomizing()
+            } else {
+                fabActiveState = false
+                fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_play_arrow_fab))
+                fabText.text = getString(R.string.randomize)
+                ratingListPresenter.stopRandomizing()
             }
         }
     }

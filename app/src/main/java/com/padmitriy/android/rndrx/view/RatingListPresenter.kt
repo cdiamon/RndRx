@@ -65,7 +65,7 @@ class RatingListPresenter @Inject constructor(private val summitsDao: SummitsDao
      * item's rating with random value
      */
     fun startRandomizing() {
-        randomSummitDisposable = Observable.just(0).flatMap {
+        randomSummitDisposable = Observable.just(Any()).flatMap {
             Observable.zip(
                 summitsDao.getSummitById(getRandomId()).toObservable(),
                 Observable.interval(getRandomDelay(), TimeUnit.MILLISECONDS),
@@ -83,41 +83,6 @@ class RatingListPresenter @Inject constructor(private val summitsDao: SummitsDao
 
         unsubscribeOnDrop(randomSummitDisposable)
     }
-
-//    fun startRandomizing() {
-//        randomSummitDisposable =
-//                summitsDao.getSummitById(getRandomId()).toObservable()
-//                        .concatMap { i -> Observable.just(i).delay(getRandomDelay(), TimeUnit.MILLISECONDS) }
-//                        .map { return@map it.apply { rating = getRandomRating() } }
-//                        .doOnNext { summit ->
-//                            summitsDao.updateSummit(summit)
-//                        }
-//                        .repeat(55)
-//                        .subscribeOn(Schedulers.io())
-//                        .subscribe({}, { throwable ->
-//                            throwable.printStackTrace()
-//                        })
-//
-//        unsubscribeOnDrop(randomSummitDisposable)
-//    }
-//    fun startRandomizing() {
-//        randomSummitDisposable = (
-//                Observable.interval(getRandomDelay(), getRandomDelay(), TimeUnit.MILLISECONDS)
-//                        .flatMap { summitsDao.getSummitById(getRandomId()).toObservable() }
-////                        .concatMap { i -> Observable.just(i).delay(getRandomDelay(), TimeUnit.MILLISECONDS) }
-//                        .map { return@map it.apply { rating = getRandomRating() } }
-//                        .doOnNext { summit ->
-//                            summitsDao.updateSummit(summit)
-//                        }
-//                        .repeat(55)
-//                        .subscribeOn(Schedulers.io())
-//                        .subscribe({}, { throwable ->
-//                            throwable.printStackTrace()
-//                        }))
-//
-//
-//        unsubscribeOnDrop(randomSummitDisposable)
-//    }
 
     fun stopRandomizing() {
         randomSummitDisposable.dispose()
